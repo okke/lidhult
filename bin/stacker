@@ -1,0 +1,48 @@
+#!/usr/bin/env ruby
+
+require_relative '../src/Stacker.rb'
+
+
+require 'optparse'
+
+if not defined? RT_OPTIONS
+  RT_OPTIONS = {} 
+end
+
+RT_OPTIONS[:input] = "Stackerfile"
+
+option_parser = OptionParser.new do |opts|
+  opts.banner = "Usage: stacker [options]"
+
+  opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
+    if v
+      RT_OPTIONS[:verbose] = lambda do |line|
+        puts line
+      end
+    end
+  end
+
+  opts.on("-d", "--def [DEFINITION]", "use DEFINITION as Stackfile") do |d|
+    RT_OPTIONS[:input] = d
+  end
+
+end
+
+
+begin option_parser.parse!
+rescue OptionParser::InvalidOption => e
+  puts e
+  puts option_parser.banner
+  exit 1
+end
+
+# command = ARGV.shift || "init"
+
+if not File.readable?(RT_OPTIONS[:input])
+  STDERR.puts "could not read #{RT_OPTIONS[:input]}"
+  abort
+end
+
+Stacker.new(File.read(RT_OPTIONS[:input])).create
+
+

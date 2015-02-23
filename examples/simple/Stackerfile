@@ -1,0 +1,12 @@
+
+image_set :myspace do
+
+  image :base do
+    from "ubuntu"
+  end
+
+  image :soup do
+    from :base
+  end
+
+end

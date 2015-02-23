@@ -1,0 +1,1 @@
+FROM myspace/base
