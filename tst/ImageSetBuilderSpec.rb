@@ -92,7 +92,7 @@ describe ImageSetBuilder do
     expect(File.read("images/myspace/base/Dockerfile")).to eq expected.strip_heredoc
   end
 
-  it "should generate a docker build script" do
+  it "should generate an executable docker build script" do
 
     create_image_set do
 
@@ -122,9 +122,23 @@ describe ImageSetBuilder do
       end
     end
 
-    expect(File.read("images/build_myspace.sh")).to eq expected.strip_heredoc
     expect(File.executable?("images/build_myspace.sh")).to be true
 
+  end
+
+  it "should use the declared namespace inside the docker build script for actual image names" do
+
+    create_image_set :myspace do
+      image :base do
+      end
+    end
+
+    expected = <<-EOF
+      #!/bin/bash
+      docker build -t "myspace/base" images/myspace/base
+    EOF
+
+    expect(File.read("images/build_myspace.sh")).to eq expected.strip_heredoc
   end
 
 end
