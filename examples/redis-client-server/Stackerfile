@@ -1,0 +1,34 @@
+
+image_set :myredis do
+
+  image :redis do
+    from "ubuntu"
+
+    run <<-EOF
+      apt-get update
+      apt-get install -y redis-server
+    EOF
+
+  end
+
+  image :server do
+    from :redis
+
+    # TODO expose port (not supported yet)
+
+    start "/tmp/startup.sh", <<-EOF
+      echo "starting redis server"
+      redis-server
+    EOF
+  end
+
+  image :client do
+    from :redis
+
+    start "/tmp/startup.sh", <<-EOF
+      echo "starting redis client"
+      redis-cli -h $DB_PORT_6379_TCP_ADDR
+    EOF
+  end
+
+end
