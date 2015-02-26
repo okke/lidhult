@@ -106,6 +106,18 @@ class EntryPointInstruction
   end
 end
 
+class ExposeInstruction 
+  
+  def initialize(p)
+    @port = p
+  end
+
+  def create(file)
+    file.write "EXPOSE #{@port}\n"
+    return self
+  end
+end
+
 
 class Image 
 
@@ -173,6 +185,10 @@ class Image
 
   def entrypoint(cmd)
     @instructions << EntryPointInstruction.new(cmd)
+  end
+
+  def expose(p)
+    @instructions << ExposeInstruction.new(p)
   end
 end
 
@@ -278,6 +294,13 @@ class ImageBuilder
       else 
         image.env k,v
       end
+    end
+  end
+
+  def expose(name=nil, p)
+    image.expose p
+    if name
+      image.env name,p
     end
   end
 

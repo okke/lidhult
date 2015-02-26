@@ -283,5 +283,30 @@ describe ImageBuilder do
     expect(File.read("images/soup/tmp/startup.sh")).to eq "#!/bin/bash\ntop\n"
   end
 
+  it "should generate expose statements" do
+    create_image :soup do
+      expose 8080
+    end
+
+    expected = <<-EOF
+      EXPOSE 8080
+    EOF
+
+    expect(File.read("images/soup/Dockerfile")).to eq expected.strip_heredoc
+  end
+
+  it "should generate named expose statements" do
+    create_image :soup do
+      expose :HTTP_PORT, 8088
+    end
+
+    expected = <<-EOF
+      EXPOSE 8088
+      ENV HTTP_PORT="8088"
+    EOF
+
+    expect(File.read("images/soup/Dockerfile")).to eq expected.strip_heredoc
+  end
+
 
 end
