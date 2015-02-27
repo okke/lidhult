@@ -126,8 +126,8 @@ describe ImageSetBuilder do
 
     expected = <<-EOF
       #!/bin/bash
-      docker build -t "base" images/base
-      docker build -t "soup" images/soup
+      docker build -t "base" base
+      docker build -t "soup" soup
     EOF
 
     expect(File.read("images/build.sh")).to eq expected.strip_heredoc
@@ -155,7 +155,7 @@ describe ImageSetBuilder do
 
     expected = <<-EOF
       #!/bin/bash
-      docker build -t "myspace/base" images/myspace/base
+      docker build -t "myspace/base" myspace/base
     EOF
 
     expect(File.read("images/build_myspace.sh")).to eq expected.strip_heredoc

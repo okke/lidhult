@@ -63,7 +63,7 @@ class ImageSet
     File.open("#{build_file_name}", 'w') do |file|
       file.write "#!/bin/bash\n"
       @images.each do |i|
-        file.write "docker build -t \"#{i.full_name}\" #{i.local_dir}\n"
+        file.write "docker build -t \"#{i.full_name}\" #{i.full_name}\n"
       end
     end
 

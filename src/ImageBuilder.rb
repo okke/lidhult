@@ -144,11 +144,7 @@ class Image
   end
 
   def local_dir
-    if build_by and build_by.set and build_by.set.space
-      return "images/#{build_by.set.space}/#{@name}"
-    else
-      return "images/#{@name}"
-    end
+    return "images/#{self.full_name}"
   end
  
   def create
