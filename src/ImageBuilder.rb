@@ -90,7 +90,7 @@ class EnvInstruction
   end
 
   def create(file)
-    file.write "ENV #{@key}=\"#{@value}\"\n"
+    file.write "ENV #{@key} \"#{@value}\"\n"
   end
 end
 

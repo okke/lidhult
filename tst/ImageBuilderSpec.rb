@@ -156,9 +156,9 @@ describe ImageBuilder do
 
     expected = <<-EOF
       FROM ubuntu
-      ENV host="http://soup.com"
-      ENV port="1972"
-      ENV debug="true"
+      ENV host "http://soup.com"
+      ENV port "1972"
+      ENV debug "true"
     EOF
 
     expect(File.read("images/soup/Dockerfile")).to eq expected.strip_heredoc
@@ -176,9 +176,9 @@ describe ImageBuilder do
 
     expected = <<-EOF
       FROM ubuntu
-      ENV proxy="soup.com"
-      ENV http_proxy="http://soup.com"
-      ENV https_proxy="https://soup.com"
+      ENV proxy "soup.com"
+      ENV http_proxy "http://soup.com"
+      ENV https_proxy "https://soup.com"
     EOF
 
     expect(File.read("images/soup/Dockerfile")).to eq expected.strip_heredoc
@@ -196,8 +196,8 @@ describe ImageBuilder do
 
     expected = <<-EOF
       FROM ubuntu
-      ENV http_proxy="http://soup.com"
-      ENV https_proxy="https://soup.com"
+      ENV http_proxy "http://soup.com"
+      ENV https_proxy "https://soup.com"
     EOF
 
     expect(File.read("images/soup/Dockerfile")).to eq expected.strip_heredoc
@@ -214,8 +214,8 @@ describe ImageBuilder do
 
     expected = <<-EOF
       FROM ubuntu
-      ENV _proxy="soup.com"
-      ENV __a="b"
+      ENV _proxy "soup.com"
+      ENV __a "b"
     EOF
 
     expect(File.read("images/soup/Dockerfile")).to eq expected.strip_heredoc
@@ -235,9 +235,9 @@ describe ImageBuilder do
 
     expected = <<-EOF
       FROM ubuntu
-      ENV proxy="soup.com"
-      ENV http_proxy="http://soup.com"
-      ENV https_proxy="https://soup.com"
+      ENV proxy "soup.com"
+      ENV http_proxy "http://soup.com"
+      ENV https_proxy "https://soup.com"
     EOF
 
     expect(File.read("images/soup/Dockerfile")).to eq expected.strip_heredoc
@@ -302,7 +302,7 @@ describe ImageBuilder do
 
     expected = <<-EOF
       EXPOSE 8088
-      ENV HTTP_PORT="8088"
+      ENV HTTP_PORT "8088"
     EOF
 
     expect(File.read("images/soup/Dockerfile")).to eq expected.strip_heredoc
